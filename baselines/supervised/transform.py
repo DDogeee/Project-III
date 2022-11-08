@@ -51,16 +51,6 @@ def transform(X, Y):
 
 
 def load_and_transform(data_path, save_processed=True, verbose=False, processed_dir='baselines/supervised/data/processed'):
-
-    if os.path.exists(processed_dir):
-        X = torch.load(os.path.join(processed_dir, 'x.pth'))
-        edge_index = torch.load(os.path.join(processed_dir, 'edge_index.pth'))
-        edge_attr = torch.load(os.path.join(processed_dir, 'edge_attr.pth'))
-        Y = torch.load(os.path.join(processed_dir, 'y.pth'))
-        data_list = [Data(x=x, edge_index=e, edge_attr=a, y=y) for x, e, a, y in zip(X, edge_index, edge_attr, Y)]
-
-        return data_list
-
     X, Y = load_data(data_path)
     data_list = transform(X, Y)
 

@@ -80,7 +80,7 @@ if __name__ == "__main__":
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
     params = dict(
-        num_inputs=3,
+        num_inputs=tr[0].x.shape[1],
         num_hiddens=args.num_hiddens,
         num_outputs=2
     )
