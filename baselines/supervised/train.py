@@ -8,6 +8,7 @@ from transform import load_and_transform
 from torch_geometric.loader import DataLoader
 from net import Net, GAT
 import argparse
+import time
 
 
 def accuracy(pred_y, y):
@@ -68,6 +69,8 @@ if __name__ == "__main__":
     parser.add_argument("--batch_size", type=int, default=4)
     args = parser.parse_args()
 
+    start = time.time()
+
     tr, vl, ts = shuffle_and_split(
         data_list=load_and_transform(args.data_dir, processed_dir=os.path.join(args.data_dir, 'processed')),
         seed=0
@@ -77,6 +80,9 @@ if __name__ == "__main__":
     vl_loader = DataLoader(dataset=vl, batch_size=args.batch_size)
     ts_loader = DataLoader(dataset=ts, batch_size=args.batch_size)
 
+    print("Process took", str(time.time()-start), "seconds")
+    print("Start training with", tr[0].x.shape[1], "input")
+    
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
     params = dict(

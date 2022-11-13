@@ -21,6 +21,7 @@ def transform_one(x):
     dp.x = torch.cat((dp.x, torch.tensor(x['must_dispatch'] * 1.0).unsqueeze(-1)), dim=1)
     dp.x = torch.cat((dp.x, torch.tensor(x['time_windows'][:,0]).unsqueeze(-1)), dim=1)
     dp.x = torch.cat((dp.x, torch.tensor(x['time_windows'][:,1]).unsqueeze(-1)), dim=1)
+    dp.x = torch.cat((dp.x, torch.tensor(x['service_times'] * 1.0).unsqueeze(-1)), dim = 1)
     
     dp.x = dp.x.float()
 
