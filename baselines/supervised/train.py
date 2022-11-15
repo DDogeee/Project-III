@@ -94,7 +94,7 @@ if __name__ == "__main__":
     with open(os.path.join(args.ckpt_dir, 'config.json'), 'w') as f:
         json.dump(params, f)
 
-    model = GAT(**params).to(device)
+    model = Net(**params).to(device)
 
     optimizer = torch.optim.Adam(model.parameters(), lr=args.lr, weight_decay=5e-3)
     best_acc = 0
