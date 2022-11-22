@@ -62,7 +62,7 @@ class GAT(torch.nn.Module):
     def forward(self, data):
       x, edge_index, edge_attr = data.x, data.edge_index, data.edge_attr
       h = torch.relu(self.conv1(x, edge_index, edge_attr))
-      h = torch.relu(self.conv2(x, edge_index, edge_attr))
+      h = torch.relu(self.conv2(h, edge_index, edge_attr))
       h = self.gat1(h, edge_index)
       h = F.elu(h)
       h = F.dropout(h, p=0.6, training=self.training)
