@@ -17,6 +17,7 @@ if __name__ == "__main__":
     parser.add_argument("--static", action='store_true', help="Add this flag to solve the static variant of the problem (by default dynamic)")
     parser.add_argument("--epoch_tlim", type=int, default=120, help="Time limit per epoch")
     parser.add_argument("--timeout", type=int, default=3600, help="Global timeout (seconds) to use")
+    parser.add_argument("--model")
 
     try:
         split_idx = sys.argv.index("--")
@@ -81,7 +82,11 @@ if __name__ == "__main__":
 
     assert done, "Environment is not finished"
     # Write results
-    print(f"------ Controller ------")
-    print(f"Cost of solution: {sum(env.final_costs.values())}")
-    print("Solution:")
-    print(tools.json_dumps_np(env.final_solutions))
+    # print(f"------ Controller ------")
+    # print(f"Cost of solution: {sum(env.final_costs.values())}")
+    # print("Solution:")
+    # print(tools.json_dumps_np(env.final_solutions))
+    outputfile = '{model}.json'.format(model = args.model)
+    json_ob = json.dumps({args.model : str(sum(env.final_costs.values())), 'instance' : args.instance})
+    with open(outputfile, "a") as outfile:
+        outfile.write(json_ob+'\n')
